@@ -17,28 +17,25 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-
-    respond_to do |format|
       if @post.save
         redirect_to @post, notice: 'Post was successfully created.'
       else
         render action: 'new'
-      end
     end
+  end
+  
 
   def update
-    respond_to do |format|
       if @post.update(post_params)
         redirect_to @post, notice: 'Post was successfully updated.'
       else
         render action: 'edit'
-      end
     end
+  end
 
   def destroy
     @post.destroy
-      redirect_to posts_url
-    end
+    redirect_to posts_url
   end
 
   private
