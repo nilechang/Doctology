@@ -1,34 +1,24 @@
-<h1>Listing posts</h1>
+<%= render 'pages/home' unless user_signed_in? %>
 
-<table>
-  <thead>
-    <tr>
-			<th>Image</th>
-      <th>Description</th>
-			<th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div id = "posts" class = "transitions-enabled">
     <% @posts.each do |post| %>
-      <tr>
-				<td><%= image_tag post.image.url(:medium) %>
-        <td><%= post.description %></td>
-				<td><%= post.user.email if post.user %></td>
-        <td><%= link_to 'Show', post %></td>
-				<% if post.user == current_user %>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-				<% end %>
-      </tr>
+      <div class = "box  panel panel-default">
+				<%= link_to image_tag(post.image.url(:medium)), post %>
+				<div class = "panel-body">
+        	<%= post.description %> <br />
+					<strong><%= post.user.email if post.user %></strong>
+					<% if post.user == current_user %>
+						<div class = "actions">
+        			<%= link_to edit_post_path(post) do %>
+								<span class="glyphicon glyphicon-edit"></span> Edit
+							<% end %>
+        			<%= link_to method: :delete, data: { confirm: 'Are you sure?' } do %>
+							<span class="glyphicon glyphicon-trash"></span>
+							Delete
+							<% end %>
+						</div>
+					<% end %>
+				</div>
+			</div>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-<% if user_signed_in? %>
-<%= link_to 'New Post', new_post_path %>
-<% end %>
+</div>
