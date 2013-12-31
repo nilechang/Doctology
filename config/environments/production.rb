@@ -81,7 +81,6 @@ Doctology::Application.configure do
   # Required for Heroku
   # Note to set this to actual host
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-end
 
 # Sets Paperclip to use Amazon S3
   config.paperclip_defaults = {
